@@ -1,0 +1,95 @@
+{
+  "@@locale": "pl",
+  "appTitle": "IterBook",
+  "@appTitle": {
+    "description": "Tytuł aplikacji"
+  },
+  "homeTitle": "Strona główna",
+  "@homeTitle": {
+    "description": "Tytuł ekranu głównego"
+  },
+  "settings": "Ustawienia",
+  "@settings": {
+    "description": "Element menu ustawień"
+  },
+  "language": "Język",
+  "@language": {
+    "description": "Etykieta wyboru języka"
+  },
+  "polish": "Polski",
+  "@polish": {
+    "description": "Opcja języka polskiego"
+  },
+  "english": "Angielski",
+  "@english": {
+    "description": "Opcja języka angielskiego"
+  },
+  "welcome": "Witaj w IterBook",
+  "@welcome": {
+    "description": "Wiadomość powitalna"
+  },
+  "save": "Zapisz",
+  "@save": {
+    "description": "Przycisk zapisz"
+  },
+  "cancel": "Anuluj",
+  "@cancel": {
+    "description": "Przycisk anuluj"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "Przycisk OK"
+  },
+  "error": "Błąd",
+  "@error": {
+    "description": "Etykieta komunikatu błędu"
+  },
+  "success": "Sukces",
+  "@success": {
+    "description": "Etykieta komunikatu sukcesu"
+  },
+  "readingDisplay": "Wyświetlanie",
+  "@readingDisplay": {
+    "description": "Tytuł sekcji wyświetlania"
+  },
+  "fontSize": "Rozmiar czcionki",
+  "@fontSize": {
+    "description": "Etykieta rozmiaru czcionki"
+  },
+  "backgroundColor": "Kolor tła",
+  "@backgroundColor": {
+    "description": "Etykieta koloru tła"
+  },
+  "textColor": "Kolor tekstu",
+  "@textColor": {
+    "description": "Etykieta koloru tekstu"
+  },
+  "preview": "Podgląd",
+  "@preview": {
+    "description": "Etykieta podglądu"
+  },
+  "sample": "Przykład",
+  "@sample": {
+    "description": "Przykładowy tekst do podglądu"
+  },
+  "resetToDefaults": "Przywróć domyślne",
+  "@resetToDefaults": {
+    "description": "Przycisk przywracania domyślnych"
+  },
+  "about": "O aplikacji",
+  "@about": {
+    "description": "Sekcja o aplikacji"
+  },
+  "noBooksYet": "Brak książek",
+  "@noBooksYet": {
+    "description": "Komunikat o braku książek"
+  },
+  "tapToAddBook": "Kliknij + aby dodać pierwszy PDF",
+  "@tapToAddBook": {
+    "description": "Wskazówka dodawania książki"
+  },
+  "addBook": "Dodaj książkę",
+  "@addBook": {
+    "description": "Tooltip dodawania książki"
+  }
+}

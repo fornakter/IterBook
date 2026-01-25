@@ -1,0 +1,95 @@
+{
+  "@@locale": "en",
+  "appTitle": "IterBook",
+  "@appTitle": {
+    "description": "The application title"
+  },
+  "homeTitle": "Home",
+  "@homeTitle": {
+    "description": "Title for the home screen"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings menu item"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language selection label"
+  },
+  "polish": "Polish",
+  "@polish": {
+    "description": "Polish language option"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "welcome": "Welcome to IterBook",
+  "@welcome": {
+    "description": "Welcome message"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK button"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Error message label"
+  },
+  "success": "Success",
+  "@success": {
+    "description": "Success message label"
+  },
+  "readingDisplay": "Reading Display",
+  "@readingDisplay": {
+    "description": "Reading display section title"
+  },
+  "fontSize": "Font Size",
+  "@fontSize": {
+    "description": "Font size label"
+  },
+  "backgroundColor": "Background Color",
+  "@backgroundColor": {
+    "description": "Background color label"
+  },
+  "textColor": "Text Color",
+  "@textColor": {
+    "description": "Text color label"
+  },
+  "preview": "Preview",
+  "@preview": {
+    "description": "Preview label"
+  },
+  "sample": "Sample",
+  "@sample": {
+    "description": "Sample text for preview"
+  },
+  "resetToDefaults": "Reset to Defaults",
+  "@resetToDefaults": {
+    "description": "Reset to defaults button"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About section"
+  },
+  "noBooksYet": "No books yet",
+  "@noBooksYet": {
+    "description": "No books yet message"
+  },
+  "tapToAddBook": "Tap + to add your first PDF",
+  "@tapToAddBook": {
+    "description": "Tap to add book hint"
+  },
+  "addBook": "Add Book",
+  "@addBook": {
+    "description": "Add book tooltip"
+  }
+}
