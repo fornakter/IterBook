@@ -1,0 +1,6 @@
+Pierwsza wersja:
+- Funkcjonalność szybkiego czytania RSVP
+- Obsługa plików PDF i TXT
+- Regulowana prędkość czytania
+- Zapisywanie postępu czytania
+- Obsługa wielu języków

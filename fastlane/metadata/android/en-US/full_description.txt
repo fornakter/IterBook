@@ -1,0 +1,15 @@
+IterBook is a speed reading application using the RSVP (Rapid Serial Visual Presentation) technique.
+
+Features:
+- Import books from PDF and TXT files
+- Adjustable reading speed (words per minute)
+- Pause at sentence endings for better comprehension
+- Save reading progress automatically
+- Resume reading from where you left off
+- Screen stays awake during reading
+- Multi-language support (English, Polish)
+- Dark and light theme support
+
+RSVP displays words one at a time in a fixed position, eliminating eye movement and allowing for faster reading speeds while maintaining comprehension.
+
+This app is free, open-source, and contains no ads or tracking.

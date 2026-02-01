@@ -1,0 +1,6 @@
+Initial release:
+- RSVP speed reading functionality
+- PDF and TXT file support
+- Adjustable reading speed
+- Reading progress saving
+- Multi-language support

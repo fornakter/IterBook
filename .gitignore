@@ -63,3 +63,8 @@ trello_get_sprint_tasks.py
 
 # Android SDK
 /Android/
+
+# Build artifacts
+*.AppImage
+*.apk
+*.aab

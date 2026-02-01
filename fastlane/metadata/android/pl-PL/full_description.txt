@@ -1,0 +1,15 @@
+IterBook to aplikacja do szybkiego czytania wykorzystująca technikę RSVP (Rapid Serial Visual Presentation).
+
+Funkcje:
+- Import książek z plików PDF i TXT
+- Regulowana prędkość czytania (słów na minutę)
+- Pauza na końcu zdań dla lepszego zrozumienia
+- Automatyczne zapisywanie postępu czytania
+- Wznowienie czytania od miejsca, w którym skończyłeś
+- Ekran nie wygasa podczas czytania
+- Obsługa wielu języków (angielski, polski)
+- Jasny i ciemny motyw
+
+RSVP wyświetla słowa jedno po drugim w stałej pozycji, eliminując ruchy oczu i umożliwiając szybsze czytanie przy zachowaniu zrozumienia tekstu.
+
+Ta aplikacja jest darmowa, open-source i nie zawiera reklam ani śledzenia.
