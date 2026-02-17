@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:pdf_text/pdf_text.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 /// Result of PDF parsing operation
 class PdfParseResult {
@@ -88,7 +88,6 @@ class PdfParserService {
   /// Extract text from entire PDF document
   Future<PdfParseResult> extractText(String filePath) async {
     try {
-      // Check if file exists
       final file = File(filePath);
       if (!await file.exists()) {
         return PdfParseResult.failure(
@@ -97,7 +96,6 @@ class PdfParserService {
         );
       }
 
-      // Read file bytes to check if empty
       final bytes = await file.readAsBytes();
       if (bytes.isEmpty) {
         return PdfParseResult.failure(
@@ -106,20 +104,32 @@ class PdfParserService {
         );
       }
 
-      // Load PDF document using pdf_text
-      final PDFDoc document = await PDFDoc.fromFile(file);
+      final document = await PdfDocument.openFile(filePath);
 
-      // Check if document has pages
-      final int pageCount = document.length;
+      final int pageCount = document.pages.length;
       if (pageCount == 0) {
+        document.dispose();
         return PdfParseResult.failure(
           message: 'PDF has no pages',
           type: PdfErrorType.emptyDocument,
         );
       }
 
-      // Extract text from all pages
-      final String extractedText = await document.text;
+      final StringBuffer textBuffer = StringBuffer();
+      for (int i = 0; i < pageCount; i++) {
+        final page = document.pages[i];
+        final pageText = await page.loadText();
+        final text = pageText.fullText;
+        if (text.isNotEmpty) {
+          if (textBuffer.isNotEmpty) {
+            textBuffer.write('\n\n');
+          }
+          textBuffer.write(text);
+        }
+      }
+
+      final String extractedText = textBuffer.toString();
+      document.dispose();
 
       if (extractedText.trim().isEmpty) {
         return PdfParseResult.failure(
@@ -169,21 +179,25 @@ class PdfParserService {
         );
       }
 
-      final PDFDoc document = await PDFDoc.fromFile(file);
-      final int pageCount = document.length;
+      final document = await PdfDocument.openFile(filePath);
+      final int pageCount = document.pages.length;
 
       if (pageIndex < 0 || pageIndex >= pageCount) {
+        document.dispose();
         return PdfParseResult.failure(
           message: 'Page index $pageIndex out of range (0-${pageCount - 1})',
           type: PdfErrorType.invalidFormat,
         );
       }
 
-      final PDFPage page = document.pageAt(pageIndex + 1); // pdf_text uses 1-indexed
-      final String pageText = await page.text;
+      final page = document.pages[pageIndex];
+      final pageText = await page.loadText();
+      final text = pageText.fullText;
+
+      document.dispose();
 
       return PdfParseResult.success(
-        text: pageText,
+        text: text,
         pageCount: pageCount,
       );
     } catch (e) {
@@ -216,10 +230,11 @@ class PdfParserService {
         );
       }
 
-      final PDFDoc document = await PDFDoc.fromFile(file);
-      final int pageCount = document.length;
+      final document = await PdfDocument.openFile(filePath);
+      final int pageCount = document.pages.length;
 
       if (startPage < 0 || startPage >= pageCount) {
+        document.dispose();
         return PdfParseResult.failure(
           message: 'Start page $startPage out of range',
           type: PdfErrorType.invalidFormat,
@@ -227,24 +242,27 @@ class PdfParserService {
       }
 
       if (endPage < startPage || endPage >= pageCount) {
+        document.dispose();
         return PdfParseResult.failure(
           message: 'End page $endPage invalid',
           type: PdfErrorType.invalidFormat,
         );
       }
 
-      // Extract text from range of pages
       final StringBuffer textBuffer = StringBuffer();
       for (int i = startPage; i <= endPage; i++) {
-        final PDFPage page = document.pageAt(i + 1); // pdf_text uses 1-indexed
-        final String pageText = await page.text;
-        if (pageText.isNotEmpty) {
+        final page = document.pages[i];
+        final pageText = await page.loadText();
+        final text = pageText.fullText;
+        if (text.isNotEmpty) {
           if (textBuffer.isNotEmpty) {
             textBuffer.write('\n\n');
           }
-          textBuffer.write(pageText);
+          textBuffer.write(text);
         }
       }
+
+      document.dispose();
 
       return PdfParseResult.success(
         text: textBuffer.toString(),
@@ -266,8 +284,11 @@ class PdfParserService {
         return 0;
       }
 
-      final PDFDoc document = await PDFDoc.fromFile(file);
-      return document.length;
+      final document = await PdfDocument.openFile(filePath);
+      final int pageCount = document.pages.length;
+      document.dispose();
+
+      return pageCount;
     } catch (e) {
       return 0;
     }
@@ -289,7 +310,6 @@ class PdfParserService {
     try {
       String processedText = text;
 
-      // Remove punctuation if requested
       if (removePunctuation) {
         processedText = processedText.replaceAll(
           RegExp(r'[^\w\s\u00C0-\u024F]'),
@@ -297,23 +317,19 @@ class PdfParserService {
         );
       }
 
-      // Convert to lowercase if requested
       if (toLowerCase) {
         processedText = processedText.toLowerCase();
       }
 
-      // Split into words
       List<String> words = processedText
           .split(RegExp(r'\s+'))
           .where((word) => word.isNotEmpty)
           .toList();
 
-      // Remove numbers if requested
       if (removeNumbers) {
         words = words.where((word) => !RegExp(r'^\d+$').hasMatch(word)).toList();
       }
 
-      // Filter by word length
       words = words.where((word) {
         return word.length >= minWordLength && word.length <= maxWordLength;
       }).toList();
@@ -389,15 +405,16 @@ class PdfParserService {
         return false;
       }
 
-      // Check PDF magic bytes (%PDF-)
       final header = String.fromCharCodes(bytes.sublist(0, 5));
       if (!header.startsWith('%PDF-')) {
         return false;
       }
 
-      // Try to load document
-      final PDFDoc document = await PDFDoc.fromFile(file);
-      return document.length > 0;
+      final document = await PdfDocument.openFile(filePath);
+      final isValid = document.pages.isNotEmpty;
+      document.dispose();
+
+      return isValid;
     } catch (e) {
       return false;
     }
@@ -406,10 +423,8 @@ class PdfParserService {
   /// Check if PDF is encrypted/password protected
   Future<bool> isEncrypted(String filePath) async {
     try {
-      final file = File(filePath);
-      final PDFDoc document = await PDFDoc.fromFile(file);
-      // If we can load it, it's not encrypted (or has no password)
-      await document.text;
+      final document = await PdfDocument.openFile(filePath);
+      document.dispose();
       return false;
     } catch (e) {
       final errorMsg = e.toString().toLowerCase();
@@ -417,7 +432,7 @@ class PdfParserService {
     }
   }
 
-  /// Get PDF metadata (limited with pdf_text)
+  /// Get PDF metadata
   Future<Map<String, String?>> getMetadata(String filePath) async {
     try {
       final file = File(filePath);
@@ -425,12 +440,13 @@ class PdfParserService {
         return {};
       }
 
-      final PDFDoc document = await PDFDoc.fromFile(file);
+      final document = await PdfDocument.openFile(filePath);
 
       final metadata = <String, String?>{
-        'pageCount': document.length.toString(),
+        'pageCount': document.pages.length.toString(),
       };
 
+      document.dispose();
       return metadata;
     } catch (e) {
       return {};
